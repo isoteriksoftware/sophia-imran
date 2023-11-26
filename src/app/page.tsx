@@ -12,6 +12,7 @@ import CustomScene from "@/components/gallery/CustomScene";
 import { Material, MeshPhysicalMaterial } from "three";
 import { useMemo } from "react";
 import SceneLights from "@/components/gallery/CustomScene/SceneLights";
+import Model from "@/components/utils/Model";
 
 class ShinyImageMaterial extends ImageItemMaterial {
   constructor(src: string) {
@@ -60,6 +61,22 @@ class ShinyVideoMaterial extends VideoItemMaterial {
   }
 }
 
+const Scenery = () => {
+  return (
+    <>
+      <SceneLights />
+
+      <group position={[-210, -30, -20]}>
+        <Model url="./models/pond.glb" scale={[7, 7, 7]} />
+      </group>
+
+      <group position={[180, -40, 0]}>
+        <Model url="./models/hyacinth.glb" />
+      </group>
+    </>
+  );
+};
+
 const Home = () => {
   const itemMaterials = useMemo(() => {
     return [
@@ -89,7 +106,7 @@ const Home = () => {
   };
 
   return (
-    <CustomScene sceneElements={<SceneLights />}>
+    <CustomScene sceneElements={<Scenery />}>
       {[
         ...itemMaterials.map((itemMaterial, index) => (
           <GalleryItem

@@ -62,7 +62,7 @@ export const useGallerySceneSettings = () => {
 
   const orbitControls = useControls("Orbit Controls", {
     enableOrbitControls: true,
-    autoRotate: true,
+    autoRotate: false,
     enableZoom: true,
     enableDamping: true,
     dampingFactor: { value: 0.01, min: 0.001, max: 0.5 },

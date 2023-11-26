@@ -1,27 +1,45 @@
-import React, { Suspense } from "react";
-import { useAnimations, useGLTF } from "@react-three/drei";
+import React, { useRef, useEffect, Suspense, useMemo } from "react";
+import { useFrame, useLoader } from "@react-three/fiber";
+import { AnimationClip, AnimationMixer, Object3D } from "three";
+import { GLTFLoader } from "three-stdlib";
 
-const ModelData: React.FC<{
+type ModelDataProps = {
   url: string;
-}> = ({ url }) => {
-  const { scene, animations } = useGLTF(url);
-  const { ref, mixer } = useAnimations(animations);
-
-  React.useEffect(() => {
-    animations.forEach((clip) => {
-      mixer.clipAction(clip).play();
-    });
-  }, [animations, mixer]);
-
-  return <primitive ref={ref} object={scene} scale={[0.5, 0.5, 0.5]} />;
+  scale?: [number, number, number];
 };
 
-const Model: React.FC<{
+const ModelData: React.FC<ModelDataProps> = ({ url, scale }) => {
+  const gltf = useLoader(GLTFLoader, url);
+  const clonedScene: Object3D = useMemo(
+    () => gltf.scene.clone(true),
+    [gltf.scene],
+  );
+  const mixer: AnimationMixer = useRef(new AnimationMixer(clonedScene)).current;
+
+  useEffect(() => {
+    gltf.animations.forEach((clip: AnimationClip) => {
+      mixer.clipAction(clip).play();
+    });
+
+    return () => {
+      mixer.stopAllAction();
+    };
+  }, [gltf.animations, mixer]);
+
+  useFrame((state, delta) => mixer.update(delta));
+
+  return <primitive object={clonedScene} scale={scale} />;
+};
+
+type ModelProps = {
   url: string;
-}> = ({ url }) => {
+  scale?: [number, number, number];
+};
+
+const Model: React.FC<ModelProps> = ({ url, scale = [0.5, 0.5, 0.5] }) => {
   return (
     <Suspense fallback={null}>
-      <ModelData url={url} />
+      <ModelData url={url} scale={scale} />
     </Suspense>
   );
 };
