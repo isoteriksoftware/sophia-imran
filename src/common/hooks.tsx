@@ -31,7 +31,7 @@ export const useGallerySceneSettings = () => {
   const cameraControls = useControls("Camera", {
     fov: { value: 60, min: 1, max: 180 },
     position: {
-      value: [0, 70, 230],
+      value: [0, 100, 230],
       step: 1,
       min: -1000,
       max: 1000,

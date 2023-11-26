@@ -71,7 +71,7 @@ const Scenery = () => {
       {/*</group>*/}
 
       <group position={[0, petalY, 0]}>
-        <Model url="./models/petals.glb" scale={[100, 100, 100]} />
+        <Model url="./models/hyacinth.glb" scale={[1, 1, 1]} />
       </group>
       <group position={[0, petalY, -50]}>
         <Model url="./models/petals.glb" scale={[100, 100, 100]} />
@@ -86,8 +86,8 @@ const Scenery = () => {
         <Model url="./models/petals.glb" scale={[100, 100, 100]} />
       </group>
 
-      <group position={[180, -40, 0]}>
-        <Model url="./models/hyacinth.glb" />
+      <group position={[180, -35, 0]} scale={[100, 100, 100]}>
+        <Model url="./models/plant.glb" />
       </group>
     </>
   );

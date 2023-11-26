@@ -6,17 +6,28 @@ import { GLTFLoader } from "three-stdlib";
 type ModelDataProps = {
   url: string;
   scale?: [number, number, number];
+  disableAnimation?: boolean;
 };
 
-const ModelData: React.FC<ModelDataProps> = ({ url, scale }) => {
+const ModelData: React.FC<ModelDataProps> = ({
+  url,
+  scale,
+  disableAnimation,
+}) => {
   const gltf = useLoader(GLTFLoader, url);
   const clonedScene: Object3D = useMemo(
     () => gltf.scene.clone(true),
     [gltf.scene],
   );
-  const mixer: AnimationMixer = useRef(new AnimationMixer(clonedScene)).current;
+  const mixer = useRef(
+    disableAnimation ? null : new AnimationMixer(clonedScene),
+  ).current;
 
   useEffect(() => {
+    if (disableAnimation) return;
+
+    if (!mixer) return;
+
     gltf.animations.forEach((clip: AnimationClip) => {
       mixer.clipAction(clip).play();
     });
@@ -24,9 +35,9 @@ const ModelData: React.FC<ModelDataProps> = ({ url, scale }) => {
     return () => {
       mixer.stopAllAction();
     };
-  }, [gltf.animations, mixer]);
+  }, [disableAnimation, gltf.animations, mixer]);
 
-  useFrame((state, delta) => mixer.update(delta));
+  useFrame((state, delta) => mixer?.update(delta));
 
   return <primitive object={clonedScene} scale={scale} />;
 };
@@ -34,12 +45,17 @@ const ModelData: React.FC<ModelDataProps> = ({ url, scale }) => {
 type ModelProps = {
   url: string;
   scale?: [number, number, number];
+  disableAnimation?: boolean;
 };
 
-const Model: React.FC<ModelProps> = ({ url, scale = [0.5, 0.5, 0.5] }) => {
+const Model: React.FC<ModelProps> = ({
+  url,
+  scale = [0.5, 0.5, 0.5],
+  disableAnimation,
+}) => {
   return (
     <Suspense fallback={null}>
-      <ModelData url={url} scale={scale} />
+      <ModelData url={url} scale={scale} disableAnimation={disableAnimation} />
     </Suspense>
   );
 };
