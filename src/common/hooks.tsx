@@ -71,8 +71,8 @@ export const useGallerySceneSettings = () => {
 
   const ambientLightControls = useControls("Ambient Light", {
     enableAmbientLight: true,
-    color: "#ffffff",
-    intensity: { value: 0.7, min: 0, max: 1 },
+    color: "#2bf503",
+    intensity: { value: 1, min: 0, max: 1 },
   });
 
   const directionalLightControls = useControls("Directional Light", {

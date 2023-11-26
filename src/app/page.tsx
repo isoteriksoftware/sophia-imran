@@ -26,7 +26,7 @@ class ShinyImageMaterial extends ImageItemMaterial {
       map: this.texture,
       reflectivity: 1,
       metalness: 1,
-      roughness: 0.2,
+      roughness: 1,
       clearcoat: 1,
       clearcoatRoughness: 0.1,
       polygonOffsetFactor: 1,
@@ -53,7 +53,7 @@ class ShinyVideoMaterial extends VideoItemMaterial {
       polygonOffsetUnits: 1,
       reflectivity: 1,
       metalness: 1,
-      roughness: 0.2,
+      roughness: 1,
       clearcoat: 0.1,
       clearcoatRoughness: 0.2,
     });
@@ -64,18 +64,18 @@ const Home = () => {
   const itemMaterials = useMemo(() => {
     return [
       new ShinyImageMaterial("./images/img1.jpg"),
-      new ShinyVideoMaterial("./videos/vid1.mp4"),
       new ShinyVideoMaterial("./videos/vid2.mp4"),
       new ShinyImageMaterial("./images/img4.jpg"),
       new ShinyImageMaterial("./images/img5.jpg"),
-      new ShinyImageMaterial("./images/img6.jpg"),
       new ShinyVideoMaterial("./videos/vid4.mp4"),
+      new ShinyImageMaterial("./images/img6.jpg"),
       new ShinyImageMaterial("./images/img7.jpg"),
       new ShinyVideoMaterial("./videos/vid5.mov"),
       new ShinyImageMaterial("./images/img11.jpg"),
       new ShinyVideoMaterial("./videos/vid6.mov"),
       new ShinyImageMaterial("./images/img12.jpg"),
       new ShinyImageMaterial("./images/img13.jpg"),
+      new ShinyVideoMaterial("./videos/vid1.mp4"),
     ];
   }, []);
 
@@ -89,7 +89,7 @@ const Home = () => {
   };
 
   return (
-    <CustomScene>
+    <CustomScene sceneElements={<SceneLights />}>
       {[
         ...itemMaterials.map((itemMaterial, index) => (
           <GalleryItem
