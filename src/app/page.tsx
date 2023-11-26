@@ -3,9 +3,7 @@
 import {
   GalleryItem,
   GalleryItemInitData,
-  ImageItem,
   ImageItemMaterial,
-  VideoItem,
   VideoItemMaterial,
 } from "react-gallery-3d";
 import CustomScene from "@/components/gallery/CustomScene";
@@ -62,12 +60,30 @@ class ShinyVideoMaterial extends VideoItemMaterial {
 }
 
 const Scenery = () => {
+  const petalY = -29;
+
   return (
     <>
       <SceneLights />
 
-      <group position={[-210, -30, -20]}>
-        <Model url="./models/pond.glb" scale={[7, 7, 7]} />
+      {/*<group position={[-210, -30, -20]}>*/}
+      {/*  <Model url="./models/pond.glb" scale={[7, 7, 7]} />*/}
+      {/*</group>*/}
+
+      <group position={[0, petalY, 0]}>
+        <Model url="./models/petals.glb" scale={[100, 100, 100]} />
+      </group>
+      <group position={[0, petalY, -50]}>
+        <Model url="./models/petals.glb" scale={[100, 100, 100]} />
+      </group>
+      <group position={[0, petalY, 50]}>
+        <Model url="./models/petals.glb" scale={[100, 100, 100]} />
+      </group>
+      <group position={[50, petalY, 0]}>
+        <Model url="./models/petals.glb" scale={[100, 100, 100]} />
+      </group>
+      <group position={[-50, petalY, 0]}>
+        <Model url="./models/petals.glb" scale={[100, 100, 100]} />
       </group>
 
       <group position={[180, -40, 0]}>
