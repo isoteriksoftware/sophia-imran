@@ -59,6 +59,12 @@ class ShinyVideoMaterial extends VideoItemMaterial {
   }
 }
 
+type Balloon = {
+  id: string;
+  position: [number, number, number];
+  size: number;
+};
+
 const Scenery = () => {
   const petalY = -29;
 
@@ -70,7 +76,7 @@ const Scenery = () => {
       {/*  <Model url="./models/pond.glb" scale={[7, 7, 7]} />*/}
       {/*</group>*/}
 
-      <group position={[0, petalY, 0]}>
+      <group position={[0, petalY, 0]} receiveShadow={true}>
         <Model url="./models/hyacinth.glb" scale={[1, 1, 1]} />
       </group>
       <group position={[0, petalY, -50]}>
@@ -86,8 +92,14 @@ const Scenery = () => {
         <Model url="./models/petals.glb" scale={[100, 100, 100]} />
       </group>
 
-      <group position={[180, -35, 0]} scale={[100, 100, 100]}>
-        <Model url="./models/plant.glb" />
+      <group position={[-150, -90, 0]} scale={[30, 30, 30]}>
+        <Model url="./models/balloons.glb" />
+      </group>
+      <group position={[0, -80, -100]} scale={[30, 30, 30]}>
+        <Model url="./models/balloons.glb" />
+      </group>
+      <group position={[150, -120, -50]} scale={[30, 30, 30]}>
+        <Model url="./models/balloons.glb" />
       </group>
     </>
   );

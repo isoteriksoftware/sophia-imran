@@ -1,12 +1,12 @@
-import React, { PropsWithChildren, useEffect } from "react";
+import React, { PropsWithChildren, useEffect, useRef } from "react";
 import { Gallery, GalleryScene } from "react-gallery-3d";
 import { Stats } from "@react-three/drei";
-import { useThree } from "@react-three/fiber";
-import { PerspectiveCamera } from "three";
+import { useFrame, useThree } from "@react-three/fiber";
+import { Group, PerspectiveCamera } from "three";
 import { useGallerySceneSettings } from "@/common/hooks";
 import { EnvironmentPresets } from "@/components/gallery/types";
 
-const CameraUpdate: React.FC<{
+const DynamicUpdates: React.FC<{
   cameraControls: { fov: number; position: [number, number, number] };
 }> = ({ cameraControls }) => {
   const { camera } = useThree();
@@ -22,45 +22,26 @@ const CameraUpdate: React.FC<{
   return null;
 };
 
-const CustomScene: React.FC<
+const Renderer: React.FC<
   PropsWithChildren<{
     sceneElements?: React.ReactNode;
   }>
 > = ({ children, sceneElements }) => {
-  const {
-    groundControls,
-    fogControls,
-    orbitControls,
-    galleryItemControls,
-    environmentControls,
-    cameraControls,
-  } = useGallerySceneSettings();
+  const galleryRef = useRef<Group>(null!);
+  const { groundControls, galleryItemControls, cameraControls } =
+    useGallerySceneSettings();
+
+  useFrame(({ clock }) => {
+    if (galleryRef.current) {
+      galleryRef.current.rotation.y += 1 * clock.getDelta();
+    }
+  });
 
   return (
-    <GalleryScene
-      fog={{
-        color: fogControls.fogColor,
-        near: fogControls.near,
-        far: fogControls.far,
-      }}
-      disableFog={!fogControls.enableFog}
-      disableControls={!orbitControls.enableOrbitControls}
-      orbitControls={{
-        enableDamping: orbitControls.enableDamping,
-        enableZoom: orbitControls.enableZoom,
-        dampingFactor: orbitControls.dampingFactor,
-        autoRotate: orbitControls.autoRotate,
-        autoRotateSpeed: orbitControls.autoRotateSpeed,
-        minPolarAngle: Math.PI / 2 - 0.5,
-        maxPolarAngle: Math.PI / 2 - 0.01,
-      }}
-      disableEnvironment={!environmentControls.enableEnvironment}
-      environment={{
-        preset: environmentControls.preset as EnvironmentPresets,
-      }}
-    >
+    <>
       {/* @ts-expect-error */}
       <Gallery
+        ref={galleryRef}
         ground={{
           width: groundControls.width,
           height: groundControls.height,
@@ -90,7 +71,43 @@ const CustomScene: React.FC<
 
       {sceneElements}
       <Stats />
-      <CameraUpdate cameraControls={cameraControls} />
+      <DynamicUpdates cameraControls={cameraControls} />
+    </>
+  );
+};
+
+const CustomScene: React.FC<
+  PropsWithChildren<{
+    sceneElements?: React.ReactNode;
+  }>
+> = ({ children, sceneElements }) => {
+  const { fogControls, orbitControls, environmentControls } =
+    useGallerySceneSettings();
+
+  return (
+    <GalleryScene
+      fog={{
+        color: fogControls.fogColor,
+        near: fogControls.near,
+        far: fogControls.far,
+      }}
+      disableFog={!fogControls.enableFog}
+      disableControls={!orbitControls.enableOrbitControls}
+      orbitControls={{
+        enableDamping: orbitControls.enableDamping,
+        enableZoom: orbitControls.enableZoom,
+        dampingFactor: orbitControls.dampingFactor,
+        autoRotate: orbitControls.autoRotate,
+        autoRotateSpeed: orbitControls.autoRotateSpeed,
+        minPolarAngle: Math.PI / 2 - 0.5,
+        maxPolarAngle: Math.PI / 2 - 0.01,
+      }}
+      disableEnvironment={!environmentControls.enableEnvironment}
+      environment={{
+        preset: environmentControls.preset as EnvironmentPresets,
+      }}
+    >
+      <Renderer sceneElements={sceneElements}>{children}</Renderer>
     </GalleryScene>
   );
 };

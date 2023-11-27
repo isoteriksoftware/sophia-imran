@@ -42,7 +42,7 @@ export const useGallerySceneSettings = () => {
     enableFog: true,
     fogColor: "#000000",
     near: { value: 10, min: 0.1, max: 1000 },
-    far: { value: 520, min: 1, max: 1000 },
+    far: { value: 650, min: 1, max: 1000 },
   });
 
   const groundControls = useControls("Ground", {
@@ -70,7 +70,7 @@ export const useGallerySceneSettings = () => {
   });
 
   const ambientLightControls = useControls("Ambient Light", {
-    enableAmbientLight: true,
+    enableAmbientLight: false,
     color: "#2bf503",
     intensity: { value: 1, min: 0, max: 1 },
   });
@@ -87,6 +87,28 @@ export const useGallerySceneSettings = () => {
     },
   });
 
+  const spotLightControls = useControls("Spot Light", {
+    enableSpotLight: true,
+    color: "#ffffff",
+    intensity: { value: 1, min: 0, max: 1 },
+    position: {
+      value: [0, 0, 0],
+      step: 1,
+      min: -1000,
+      max: 1000,
+    },
+    target: {
+      value: [0, 0, 0],
+      step: 1,
+      min: -1000,
+      max: 1000,
+    },
+    angle: { value: Math.PI / 2, min: 0, max: Math.PI / 2 },
+    penumbra: { value: 0, min: 0, max: 1 },
+    decay: { value: 2, min: 0, max: 2 },
+    distance: { value: 0, min: 0, max: 1000 },
+  });
+
   return {
     fogControls,
     groundControls,
@@ -96,5 +118,6 @@ export const useGallerySceneSettings = () => {
     cameraControls,
     ambientLightControls,
     directionalLightControls,
+    spotLightControls,
   };
 };
