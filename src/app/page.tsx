@@ -11,6 +11,8 @@ import { Material, MeshPhysicalMaterial } from "three";
 import { useMemo } from "react";
 import SceneLights from "@/components/gallery/CustomScene/SceneLights";
 import Model from "@/components/utils/Model";
+import { SpotLight } from "@react-three/drei";
+import FinalScene from "@/components/gallery/FinalScene";
 
 class ShinyImageMaterial extends ImageItemMaterial {
   constructor(src: string) {
@@ -59,26 +61,38 @@ class ShinyVideoMaterial extends VideoItemMaterial {
   }
 }
 
-type Balloon = {
-  id: string;
-  position: [number, number, number];
-  size: number;
-};
-
 const Scenery = () => {
   const petalY = -29;
 
   return (
     <>
-      <SceneLights />
+      <ambientLight color={"#c42f11"} intensity={0.43} />
+      <directionalLight
+        color={"#ffffff"}
+        intensity={1}
+        position={[-2, 10, 27]}
+      />
+      <SpotLight
+        color={"#245810"}
+        intensity={1}
+        position={[5, 100, 27]}
+        angle={Math.PI / 2}
+        penumbra={0}
+        decay={0}
+        distance={0}
+        visible={true}
+        castShadow={true}
+      />
+      <pointLight
+        color={"#3b7c26"}
+        intensity={1}
+        position={[5, 132, 149]}
+        decay={0}
+        distance={0}
+        visible={true}
+        castShadow={true}
+      />
 
-      {/*<group position={[-210, -30, -20]}>*/}
-      {/*  <Model url="./models/pond.glb" scale={[7, 7, 7]} />*/}
-      {/*</group>*/}
-
-      {/*<group position={[0, petalY, 0]} receiveShadow={true}>*/}
-      {/*  <Model url="./models/hyacinth.glb" scale={[1, 1, 1]} />*/}
-      {/*</group>*/}
       <group position={[0, petalY, -50]}>
         <Model url="./models/petals.glb" scale={[100, 100, 100]} />
       </group>
@@ -134,7 +148,7 @@ const Home = () => {
   };
 
   return (
-    <CustomScene sceneElements={<Scenery />}>
+    <FinalScene sceneElements={<Scenery />}>
       {[
         ...itemMaterials.map((itemMaterial, index) => (
           <GalleryItem
@@ -144,26 +158,7 @@ const Home = () => {
           />
         )),
       ]}
-      {/*<VideoItem src="./videos/vid1.mp4" />*/}
-      {/*<ImageItem src="./images/img2.jpg" />*/}
-      {/*<ImageItem src="./images/img3.jpg" />*/}
-      {/*<VideoItem src="./videos/vid2.mp4" />*/}
-      {/*<ImageItem src="./images/img4.jpg" />*/}
-      {/*<ImageItem src="./images/img5.jpg" />*/}
-      {/*<VideoItem src="./videos/vid3.mp4" />*/}
-      {/*<ImageItem src="./images/img6.jpg" />*/}
-      {/*<ImageItem src="./images/img7.jpg" />*/}
-      {/*<VideoItem src="./videos/vid4.mp4" />*/}
-      {/*<ImageItem src="./images/img8.jpg" />*/}
-      {/*<ImageItem src="./images/img9.jpg" />*/}
-      {/*<VideoItem src="./videos/vid5.mov" />*/}
-      {/*<ImageItem src="./images/img10.jpg" />*/}
-      {/*<ImageItem src="./images/img11.jpg" />*/}
-      {/*<VideoItem src="./videos/vid6.mov" />*/}
-      {/*<ImageItem src="./images/img12.jpg" />*/}
-      {/*<ImageItem src="./images/img13.jpg" />*/}
-      {/*<VideoItem src="./videos/vid7.mov" />*/}
-    </CustomScene>
+    </FinalScene>
   );
 };
 
