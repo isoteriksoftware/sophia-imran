@@ -25,7 +25,7 @@ export const useGallerySceneSettings = () => {
         "studio",
       ],
     },
-    enableEnvironment: true,
+    enableEnvironment: false,
   });
 
   const cameraControls = useControls("Camera", {
@@ -41,8 +41,8 @@ export const useGallerySceneSettings = () => {
   const fogControls = useControls("Fog", {
     enableFog: true,
     fogColor: "#000000",
-    near: { value: 10, min: 0.1, max: 1000 },
-    far: { value: 650, min: 1, max: 1000 },
+    near: { value: 270, min: 0.1, max: 1000 },
+    far: { value: 460, min: 1, max: 1000 },
   });
 
   const groundControls = useControls("Ground", {
@@ -51,7 +51,7 @@ export const useGallerySceneSettings = () => {
     width: { value: 1000, min: 10, max: 1000 },
     height: { value: 1000, min: 10, max: 1000 },
     enableReflector: true,
-    mirror: { value: 1, min: 0, max: 1 },
+    mirror: { value: 0.9, min: 0, max: 1 },
     resolution: { value: 2048, min: 0, max: 2048 },
     depthScale: { value: 1, min: 0.01, max: 1 },
     minDepthThreshold: { value: 0.4, min: 0.01, max: 1 },
@@ -70,9 +70,9 @@ export const useGallerySceneSettings = () => {
   });
 
   const ambientLightControls = useControls("Ambient Light", {
-    enableAmbientLight: false,
-    color: "#2bf503",
-    intensity: { value: 1, min: 0, max: 1 },
+    enableAmbientLight: true,
+    color: "#c42f11",
+    intensity: { value: 0.75, min: 0, max: 1 },
   });
 
   const directionalLightControls = useControls("Directional Light", {
@@ -80,7 +80,7 @@ export const useGallerySceneSettings = () => {
     color: "#ffffff",
     intensity: { value: 1, min: 0, max: 1 },
     position: {
-      value: [-10, 40, 5],
+      value: [5, 5, 5],
       step: 1,
       min: -1000,
       max: 1000,
@@ -92,7 +92,7 @@ export const useGallerySceneSettings = () => {
     color: "#ffffff",
     intensity: { value: 1, min: 0, max: 1 },
     position: {
-      value: [0, 0, 0],
+      value: [5, 100, 27],
       step: 1,
       min: -1000,
       max: 1000,
@@ -105,7 +105,7 @@ export const useGallerySceneSettings = () => {
     },
     angle: { value: Math.PI / 2, min: 0, max: Math.PI / 2 },
     penumbra: { value: 0, min: 0, max: 1 },
-    decay: { value: 2, min: 0, max: 2 },
+    decay: { value: 0, min: 0, max: 2 },
     distance: { value: 0, min: 0, max: 1000 },
   });
 

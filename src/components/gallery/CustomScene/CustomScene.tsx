@@ -1,6 +1,6 @@
 import React, { PropsWithChildren, useEffect, useRef } from "react";
 import { Gallery, GalleryScene } from "react-gallery-3d";
-import { Stats } from "@react-three/drei";
+import { SpotLight, Stats } from "@react-three/drei";
 import { useFrame, useThree } from "@react-three/fiber";
 import { Group, PerspectiveCamera } from "three";
 import { useGallerySceneSettings } from "@/common/hooks";
