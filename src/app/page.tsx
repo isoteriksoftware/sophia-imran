@@ -7,12 +7,15 @@ import {
   VideoItemMaterial,
 } from "react-gallery-3d";
 import CustomScene from "@/components/gallery/CustomScene";
-import { Material, MeshPhysicalMaterial } from "three";
-import { useMemo } from "react";
+import { Material, Mesh, MeshPhysicalMaterial } from "three";
+import { useMemo, useRef } from "react";
 import SceneLights from "@/components/gallery/CustomScene/SceneLights";
 import Model from "@/components/utils/Model";
-import { SpotLight } from "@react-three/drei";
+import { SpotLight, Text3D } from "@react-three/drei";
 import FinalScene from "@/components/gallery/FinalScene";
+import LatoRegular from "../assets/fonts/Lato_Regular.json";
+import dynamic from "next/dynamic";
+import { useFrame } from "@react-three/fiber";
 
 class ShinyImageMaterial extends ImageItemMaterial {
   constructor(src: string) {
@@ -61,6 +64,46 @@ class ShinyVideoMaterial extends VideoItemMaterial {
   }
 }
 
+const AnimatedText = () => {
+  const textRef = useRef<Mesh>(null!);
+  let time = 0;
+
+  useFrame((state, delta) => {
+    if (!textRef.current) return;
+
+    time += delta;
+    const rotationSpeed = 0.5;
+    const movementMagnitude = 10;
+    const minY = 80; // Define your minimum Y value here
+
+    // Rotation around Y-axis
+    //textRef.current.rotation.y += rotationSpeed * delta;
+
+    // Vertical oscillation with a minimum Y value
+    textRef.current.position.y = textRef.current.position.y =
+      minY + Math.sin(time * 2) * movementMagnitude;
+  });
+
+  return (
+    <Text3D
+      ref={textRef}
+      font={LatoRegular as any}
+      position={[-135, 100, 30]}
+      scale={[8, 8, 50]}
+    >
+      {/* eslint-disable-next-line react/no-unescaped-entities */}
+      Sophia & Imran's Enchanted Union - December 22, 2023
+      <meshStandardMaterial
+        color="#FFFFFF" // A classic white, or choose a color that matches the wedding theme
+        roughness={0.1} // A low roughness for a smooth and slightly shiny surface
+        metalness={0.3} // A touch of metalness for a subtle sheen
+        emissive="#DDDDDD" // A soft emissive color for a gentle glow
+        emissiveIntensity={0.1} // Adjust emissive intensity for a subtle effect
+      />
+    </Text3D>
+  );
+};
+
 const Scenery = () => {
   const petalY = -29;
 
@@ -92,6 +135,8 @@ const Scenery = () => {
         visible={true}
         castShadow={true}
       />
+
+      <AnimatedText />
 
       <group position={[0, petalY, -50]}>
         <Model url="./models/petals.glb" scale={[100, 100, 100]} />
