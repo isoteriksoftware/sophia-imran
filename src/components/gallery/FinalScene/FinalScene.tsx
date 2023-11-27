@@ -3,6 +3,7 @@ import { Gallery, GalleryScene } from "react-gallery-3d";
 import { useFrame } from "@react-three/fiber";
 import { Group } from "three";
 import { EnvironmentPresets } from "@/components/gallery/types";
+import { useIsMobile } from "@/common/utils";
 
 const Renderer: React.FC<
   PropsWithChildren<{
@@ -52,15 +53,17 @@ const FinalScene: React.FC<
     sceneElements?: React.ReactNode;
   }>
 > = ({ children, sceneElements }) => {
+  const isMobile = useIsMobile();
+
   return (
     <GalleryScene
       fog={{
-        near: 270,
-        far: 510,
+        near: isMobile ? 400 : 270,
+        far: isMobile ? 950 : 510,
       }}
       camera={{
-        fov: 60,
-        position: [0, 85, 208],
+        fov: isMobile ? 45 : 60,
+        position: isMobile ? [0, 95, 408] : [0, 85, 208],
       }}
       orbitControls={{
         enableDamping: true,

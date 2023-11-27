@@ -16,6 +16,7 @@ import FinalScene from "@/components/gallery/FinalScene";
 import LatoRegular from "../assets/fonts/Lato_Regular.json";
 import dynamic from "next/dynamic";
 import { useFrame } from "@react-three/fiber";
+import { useIsMobile } from "@/common/utils";
 
 class ShinyImageMaterial extends ImageItemMaterial {
   constructor(src: string) {
@@ -65,6 +66,8 @@ class ShinyVideoMaterial extends VideoItemMaterial {
 }
 
 const AnimatedText = () => {
+  const isMobile = useIsMobile();
+
   const textRef = useRef<Mesh>(null!);
   let time = 0;
 
@@ -75,7 +78,7 @@ const AnimatedText = () => {
     const minY = 70;
     const movementMagnitude = 30;
     const movementSpeed = 0.5;
-    const rotationRange = Math.PI / 4;
+    const rotationRange = isMobile ? Math.PI / 3 : Math.PI / 4;
     const rotationSpeed = 0.2;
 
     textRef.current.position.y =
@@ -88,9 +91,9 @@ const AnimatedText = () => {
     <Text3D
       ref={textRef}
       font={LatoRegular as any}
-      position={[-220, 100, -80]}
-      scale={[4, 4, 5]}
-      size={5}
+      position={isMobile ? [-80, 100, 10] : [-220, 100, -80]}
+      scale={isMobile ? [2, 2, 3] : [4, 4, 5]}
+      size={isMobile ? 7 : 5}
       height={2}
     >
       {/* eslint-disable-next-line react/no-unescaped-entities */}
