@@ -56,7 +56,7 @@ const FinalScene: React.FC<
     <GalleryScene
       fog={{
         near: 270,
-        far: 460,
+        far: 510,
       }}
       camera={{
         fov: 60,

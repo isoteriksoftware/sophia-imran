@@ -72,33 +72,38 @@ const AnimatedText = () => {
     if (!textRef.current) return;
 
     time += delta;
-    const rotationSpeed = 0.5;
-    const movementMagnitude = 10;
-    const minY = 80; // Define your minimum Y value here
+    const minY = 70; // Minimum Y value
+    const movementMagnitude = 30;
+    const movementSpeed = 0.5; // Speed of vertical oscillation
+    const rotationRange = Math.PI / 4; // Range of rotation (e.g., 45 degrees in radians)
+    const rotationSpeed = 0.2; // Speed of rotation
 
-    // Rotation around Y-axis
-    //textRef.current.rotation.y += rotationSpeed * delta;
+    // Vertical oscillation
+    textRef.current.position.y =
+      minY + Math.sin(time * movementSpeed) * movementMagnitude;
 
-    // Vertical oscillation with a minimum Y value
-    textRef.current.position.y = textRef.current.position.y =
-      minY + Math.sin(time * 2) * movementMagnitude;
+    // Oscillating rotation around Y-axis
+    // The rotation oscillates between -rotationRange and rotationRange
+    textRef.current.rotation.y = Math.sin(time * rotationSpeed) * rotationRange;
   });
 
   return (
     <Text3D
       ref={textRef}
       font={LatoRegular as any}
-      position={[-135, 100, 30]}
-      scale={[8, 8, 50]}
+      position={[-220, 100, -80]}
+      scale={[4, 4, 5]}
+      size={5}
+      height={2}
     >
       {/* eslint-disable-next-line react/no-unescaped-entities */}
       Sophia & Imran's Enchanted Union - December 22, 2023
       <meshStandardMaterial
-        color="#FFFFFF" // A classic white, or choose a color that matches the wedding theme
-        roughness={0.1} // A low roughness for a smooth and slightly shiny surface
-        metalness={0.3} // A touch of metalness for a subtle sheen
-        emissive="#DDDDDD" // A soft emissive color for a gentle glow
-        emissiveIntensity={0.1} // Adjust emissive intensity for a subtle effect
+        color="#FFFFFF"
+        roughness={0.1}
+        metalness={0.3}
+        emissive="#DDDDDD"
+        emissiveIntensity={0.1}
       />
     </Text3D>
   );
@@ -168,18 +173,15 @@ const Home = () => {
   const itemMaterials = useMemo(() => {
     return [
       new ShinyImageMaterial("./images/img1.jpg"),
+      new ShinyVideoMaterial("./videos/vid1.mov"),
+      new ShinyImageMaterial("./images/img2.jpg"),
+      new ShinyImageMaterial("./images/img3.jpg"),
       new ShinyVideoMaterial("./videos/vid2.mp4"),
       new ShinyImageMaterial("./images/img4.jpg"),
       new ShinyImageMaterial("./images/img5.jpg"),
-      new ShinyVideoMaterial("./videos/vid4.mp4"),
+      new ShinyVideoMaterial("./videos/vid3.mov"),
       new ShinyImageMaterial("./images/img6.jpg"),
-      new ShinyImageMaterial("./images/img7.jpg"),
-      new ShinyVideoMaterial("./videos/vid5.mov"),
-      new ShinyImageMaterial("./images/img11.jpg"),
-      new ShinyVideoMaterial("./videos/vid6.mov"),
-      new ShinyImageMaterial("./images/img12.jpg"),
-      new ShinyImageMaterial("./images/img13.jpg"),
-      new ShinyVideoMaterial("./videos/vid1.mp4"),
+      new ShinyVideoMaterial("./videos/vid4.mov"),
     ];
   }, []);
 
