@@ -6,8 +6,16 @@ import React from "react";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "React Gallery 3D Demo",
-  description: "A demo website for React Gallery 3D with NextJS",
+  metadataBase: new URL("https://sophia-imran.vercel.app"),
+  title: "Sophia & Imran: A Journey to Forever",
+  description: "A tale of two hearts becoming one.",
+  openGraph: {
+    type: "website",
+    description: "A tale of two hearts becoming one.",
+    title: "Sophia & Imran: A Journey to Forever",
+    url: "https://sophia-imran.vercel.app",
+    images: ["https://i.imgur.com/v38BnmG.png"],
+  },
 };
 
 export default function RootLayout({
