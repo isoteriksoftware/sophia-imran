@@ -8,7 +8,7 @@ import {
 } from "react-gallery-3d";
 import CustomScene from "@/components/gallery/CustomScene";
 import { Material, Mesh, MeshPhysicalMaterial } from "three";
-import { useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import SceneLights from "@/components/gallery/CustomScene/SceneLights";
 import Model from "@/components/utils/Model";
 import { SpotLight, Text3D } from "@react-three/drei";
@@ -72,18 +72,15 @@ const AnimatedText = () => {
     if (!textRef.current) return;
 
     time += delta;
-    const minY = 70; // Minimum Y value
+    const minY = 70;
     const movementMagnitude = 30;
-    const movementSpeed = 0.5; // Speed of vertical oscillation
-    const rotationRange = Math.PI / 4; // Range of rotation (e.g., 45 degrees in radians)
-    const rotationSpeed = 0.2; // Speed of rotation
+    const movementSpeed = 0.5;
+    const rotationRange = Math.PI / 4;
+    const rotationSpeed = 0.2;
 
-    // Vertical oscillation
     textRef.current.position.y =
       minY + Math.sin(time * movementSpeed) * movementMagnitude;
 
-    // Oscillating rotation around Y-axis
-    // The rotation oscillates between -rotationRange and rotationRange
     textRef.current.rotation.y = Math.sin(time * rotationSpeed) * rotationRange;
   });
 
