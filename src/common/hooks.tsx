@@ -31,7 +31,7 @@ export const useGallerySceneSettings = () => {
   const cameraControls = useControls("Camera", {
     fov: { value: 60, min: 1, max: 180 },
     position: {
-      value: [0, 100, 230],
+      value: [0, 85, 208],
       step: 1,
       min: -1000,
       max: 1000,
@@ -51,7 +51,7 @@ export const useGallerySceneSettings = () => {
     width: { value: 1000, min: 10, max: 1000 },
     height: { value: 1000, min: 10, max: 1000 },
     enableReflector: true,
-    mirror: { value: 0.9, min: 0, max: 1 },
+    mirror: { value: 0.88, min: 0, max: 1 },
     resolution: { value: 2048, min: 0, max: 2048 },
     depthScale: { value: 1, min: 0.01, max: 1 },
     minDepthThreshold: { value: 0.4, min: 0.01, max: 1 },
@@ -72,7 +72,7 @@ export const useGallerySceneSettings = () => {
   const ambientLightControls = useControls("Ambient Light", {
     enableAmbientLight: true,
     color: "#c42f11",
-    intensity: { value: 0.75, min: 0, max: 1 },
+    intensity: { value: 0.43, min: 0, max: 1 },
   });
 
   const directionalLightControls = useControls("Directional Light", {
@@ -80,7 +80,7 @@ export const useGallerySceneSettings = () => {
     color: "#ffffff",
     intensity: { value: 1, min: 0, max: 1 },
     position: {
-      value: [5, 5, 5],
+      value: [-2, 10, 27],
       step: 1,
       min: -1000,
       max: 1000,
@@ -89,7 +89,7 @@ export const useGallerySceneSettings = () => {
 
   const spotLightControls = useControls("Spot Light", {
     enableSpotLight: true,
-    color: "#ffffff",
+    color: "#245810",
     intensity: { value: 1, min: 0, max: 1 },
     position: {
       value: [5, 100, 27],
@@ -109,6 +109,20 @@ export const useGallerySceneSettings = () => {
     distance: { value: 0, min: 0, max: 1000 },
   });
 
+  const pointLightControls = useControls("Point Light", {
+    enablePointLight: true,
+    color: "#3b7c26",
+    intensity: { value: 1, min: 0, max: 1 },
+    position: {
+      value: [5, 132, 149],
+      step: 1,
+      min: -1000,
+      max: 1000,
+    },
+    decay: { value: 0, min: 0, max: 2 },
+    distance: { value: 0, min: 0, max: 1000 },
+  });
+
   return {
     fogControls,
     groundControls,
@@ -119,5 +133,6 @@ export const useGallerySceneSettings = () => {
     ambientLightControls,
     directionalLightControls,
     spotLightControls,
+    pointLightControls,
   };
 };

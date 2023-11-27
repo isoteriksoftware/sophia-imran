@@ -4,8 +4,12 @@ import { Mesh } from "three";
 import { SpotLight } from "@react-three/drei";
 
 const SceneLights = () => {
-  const { ambientLightControls, directionalLightControls, spotLightControls } =
-    useGallerySceneSettings();
+  const {
+    ambientLightControls,
+    directionalLightControls,
+    spotLightControls,
+    pointLightControls,
+  } = useGallerySceneSettings();
 
   const spotLightTarget = useMemo(() => new Mesh(), []);
 
@@ -40,6 +44,18 @@ const SceneLights = () => {
           penumbra={spotLightControls.penumbra}
           decay={spotLightControls.decay}
           distance={spotLightControls.distance}
+          visible={true}
+          castShadow={true}
+        />
+      )}
+
+      {pointLightControls.enablePointLight && (
+        <pointLight
+          color={pointLightControls.color}
+          intensity={pointLightControls.intensity}
+          position={pointLightControls.position}
+          decay={pointLightControls.decay}
+          distance={pointLightControls.distance}
           visible={true}
           castShadow={true}
         />

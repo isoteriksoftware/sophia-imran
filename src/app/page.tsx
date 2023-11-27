@@ -24,8 +24,8 @@ class ShinyImageMaterial extends ImageItemMaterial {
       toneMapped: false,
       map: this.texture,
       reflectivity: 1,
-      metalness: 1,
-      roughness: 1,
+      metalness: 0.7,
+      roughness: 0.3,
       clearcoat: 1,
       clearcoatRoughness: 0.1,
       polygonOffsetFactor: 1,
@@ -51,10 +51,10 @@ class ShinyVideoMaterial extends VideoItemMaterial {
       polygonOffsetFactor: 1,
       polygonOffsetUnits: 1,
       reflectivity: 1,
-      metalness: 1,
-      roughness: 1,
-      clearcoat: 0.1,
-      clearcoatRoughness: 0.2,
+      metalness: 0.7,
+      roughness: 0.3,
+      clearcoat: 1,
+      clearcoatRoughness: 0.1,
     });
   }
 }
@@ -76,9 +76,9 @@ const Scenery = () => {
       {/*  <Model url="./models/pond.glb" scale={[7, 7, 7]} />*/}
       {/*</group>*/}
 
-      <group position={[0, petalY, 0]} receiveShadow={true}>
-        <Model url="./models/hyacinth.glb" scale={[1, 1, 1]} />
-      </group>
+      {/*<group position={[0, petalY, 0]} receiveShadow={true}>*/}
+      {/*  <Model url="./models/hyacinth.glb" scale={[1, 1, 1]} />*/}
+      {/*</group>*/}
       <group position={[0, petalY, -50]}>
         <Model url="./models/petals.glb" scale={[100, 100, 100]} />
       </group>
@@ -95,10 +95,10 @@ const Scenery = () => {
       <group position={[-150, -90, 0]} scale={[30, 30, 30]}>
         <Model url="./models/balloons.glb" />
       </group>
-      <group position={[0, -80, -100]} scale={[30, 30, 30]}>
+      <group position={[20, -90, 0]} scale={[30, 30, 30]}>
         <Model url="./models/balloons.glb" />
       </group>
-      <group position={[150, -120, -50]} scale={[30, 30, 30]}>
+      <group position={[170, -80, -10]} scale={[30, 30, 30]}>
         <Model url="./models/balloons.glb" />
       </group>
     </>
